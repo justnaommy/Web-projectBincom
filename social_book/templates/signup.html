@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up - Girls' Diary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        background-color: #fdf6f0;
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .brand-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: #b08968;
+        margin-bottom: 0.5rem;
+      }
+
+      .tagline {
+        color: #a98c7d;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-card {
+        background-color: white;
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        margin: 2rem auto;
+        width: 90%;
+      }
+
+      .form-card input[type="text"],
+      .form-card input[type="email"],
+      .form-card input[type="password"] {
+        background-color: #f9f5f0;
+        border: 1px solid #e0d6ce;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        width: 100%;
+        font-size: 0.95rem;
+      }
+
+      .form-card button {
+        background: linear-gradient(to right, #f7cac9, #f3d1bf);
+        padding: 0.75rem;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: bold;
+        color: white;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      .form-card a {
+        color: #a0755d;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .form-card a:hover {
+        text-decoration: underline;
+      }
+
+      .form-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #9c8b80;
+        margin-top: 1rem;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 1.5rem 1rem 0.75rem;
+        font-size: 0.85rem;
+        color: #9c8b80;
+      }
+
+      .footer a {
+        color: #a0755d;
+        margin: 0 0.5rem;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      .checkbox-wrapper {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.25rem;
+        font-size: 0.875rem;
+        text-align: left;
+        color: #666;
+      }
+
+      .checkbox-wrapper input[type="checkbox"] {
+        margin-top: 0.2rem;
+        margin-right: 0.5rem;
+      }
+
+      @media (max-width: 500px) {
+        .brand-title {
+          font-size: 2rem;
+        }
+      }
+
+      h5 {
+        color: red;
+        font-weight: normal;
+        margin: 0 0 1rem 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="flex-grow flex items-center justify-center">
+      <div class="form-card">
+        <div class="brand-title">Girls' Diary</div>
+        <div class="tagline">Girls' Diary: Your Story, Her Inspiration.</div>
+
+        <!-- Message Display Section -->
+        <div>
+          {% for message in messages %}
+          <h5>{{ message }}</h5>
+          {% endfor %}
+        </div>
+
+        <!-- Signup Form -->
+        <form method="POST">
+          {% csrf_token %}
+          <input type="text" name="username" placeholder="Username" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            name="password2"
+            placeholder="Confirm Password"
+            required
+          />
+
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="agree" name="agree" required />
+            <label for="agree">
+              I agree to the
+              <a href="{% url 'community_guidelines' %}" target="_blank"
+                >Community Guidelines</a
+              >
+            </label>
+          </div>
+
+          <button type="submit">Sign Up</button>
+        </form>
+
+        <p class="form-note">
+          Already have an account? <a href="/signin">Sign in </a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer border-t border-[#e9ded7]">
+      <div>
+        <a href="#">Help</a> | <a href="#">About</a> |
+        <a href="{% url 'community_guidelines' %}">Community Guidelines</a>
+      </div>
+      <div class="mt-2">&copy; 2025 Girls' Diary App. All rights reserved.</div>
+    </footer>
+  </body>
+</html>
